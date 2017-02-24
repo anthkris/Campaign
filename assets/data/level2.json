@@ -1,0 +1,49 @@
+{
+    "duration": 60,
+    "enemies": 
+    [
+      {
+        "time": 1,
+        "x": 0.05,
+        "health": 6,
+        "speedX": 20, 
+        "speedY": 50,
+        "key": "yellowEnemy",
+        "scale": 3,
+        "shootFreq": 2,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 2,
+        "x": 0.1,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "yellowEnemy",
+        "scale": 1,
+        "shootFreq": 2,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 3,
+        "x": 0.1,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "yellowEnemy",
+        "scale": 1,
+        "shootFreq": 2,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 4,
+        "x": 0.1,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "yellowEnemy",
+        "scale": 1,
+        "shootFreq": 2,
+        "bulletVelocity": 100
+      }]
+    }

@@ -1,0 +1,36 @@
+{"frames": {
+
+"tablet_001.png":
+{
+	"frame": {"x":1,"y":1,"w":103,"h":143},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":143},
+	"sourceSize": {"w":103,"h":143}
+},
+"tablet_002.png":
+{
+	"frame": {"x":1,"y":146,"w":103,"h":143},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":143},
+	"sourceSize": {"w":103,"h":143}
+},
+"tablet_003.png":
+{
+	"frame": {"x":1,"y":291,"w":103,"h":143},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":103,"h":143},
+	"sourceSize": {"w":103,"h":143}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "tabletSprite.png",
+	"format": "RGBA8888",
+	"size": {"w":105,"h":435},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b016a6e0935e93da9c5fde2bc3af1be1:56974f5b90e57a615229cf087bccac87:80434e298e622ba2e9fd82bca03483e7$"
+}
+}

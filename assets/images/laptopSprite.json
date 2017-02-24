@@ -1,0 +1,36 @@
+{"frames": {
+
+"laptop_001.png":
+{
+	"frame": {"x":1,"y":1,"w":417,"h":229},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":417,"h":229},
+	"sourceSize": {"w":417,"h":229}
+},
+"laptop_002.png":
+{
+	"frame": {"x":420,"y":1,"w":417,"h":229},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":417,"h":229},
+	"sourceSize": {"w":417,"h":229}
+},
+"laptop_003.png":
+{
+	"frame": {"x":839,"y":1,"w":417,"h":229},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":417,"h":229},
+	"sourceSize": {"w":417,"h":229}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "laptopSprite.png",
+	"format": "RGBA8888",
+	"size": {"w":1257,"h":231},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:b4ac0926956e581dfc20a5f715e3b714:8d72053156b633cd08bb9f3a7ed0eab4:8e822d2c90322c06ceeb89f1aae4c2c1$"
+}
+}

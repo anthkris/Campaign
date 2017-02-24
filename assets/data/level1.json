@@ -1,0 +1,260 @@
+{
+    "duration": 40,
+    "enemies": 
+    [
+      {
+        "time": 1,
+        "x": 0.05,
+        "health": 10,
+        "speedX": 50, 
+        "speedY": 30,
+        "key": "desktop",
+        "scale": 0.5,
+        "shootFreq": 2,
+        "bulletVelocity": 200
+      },
+      {
+        "time": 2,
+        "x": 0.1,
+        "health": 4,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 3,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 3,
+        "x": 0.3,
+        "health": 5,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 1,
+        "shootFreq": 2,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 4,
+        "x": 0.5,
+        "health": 4,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 4,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 7,
+        "x": 0.5,
+        "health": 4,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 3,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 9,
+        "x": 0.7,
+        "health": 3,
+        "speedX": 70, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 10,
+        "x": 0.6,
+        "health": 3,
+        "speedX": 70, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 11,
+        "x": 0.5,
+        "health": 3,
+        "speedX": 70, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 13,
+        "x": 0.4,
+        "health": 3,
+        "speedX": 70, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 14,
+        "x": 0.3,
+        "health": 3,
+        "speedX": 70, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 18,
+        "x": 0.1,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 19,
+        "x": 0.8,
+        "health": 6,
+        "speedX": 50, 
+        "speedY": 60,
+        "key": "laptop",
+        "scale": 0.5,
+        "shootFreq": 4,
+        "bulletVelocity": 150
+      },
+      {
+        "time": 20,
+        "x": 0.3,
+        "health": 3,
+        "speedX": 60, 
+        "speedY": 50,
+        "key": "laptop",
+        "scale": 0.5,
+        "shootFreq": 4,
+        "bulletVelocity": 150
+      },
+      {
+        "time": 23,
+        "x": 0.2,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 24,
+        "x": 0.4,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 25,
+        "x": 0.6,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.3,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 27,
+        "x": 0.9,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 28,
+        "x": 0.7,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 29,
+        "x": 0.5,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 30,
+        "x": 0.4,
+        "health": 6,
+        "speedX": 60, 
+        "speedY": 50,
+        "key": "laptop",
+        "scale": 0.5,
+        "shootFreq": 4,
+        "bulletVelocity": 150
+      },
+      {
+        "time": 31,
+        "x": 0.8,
+        "health": 6,
+        "speedX": 60, 
+        "speedY": 50,
+        "key": "laptop",
+        "scale": 0.5,
+        "shootFreq": 4,
+        "bulletVelocity": 150
+      },
+      {
+        "time": 32,
+        "x": 0.6,
+        "health": 3,
+        "speedX": 50, 
+        "speedY": 50,
+        "key": "tablet",
+        "scale": 0.5,
+        "shootFreq": 5,
+        "bulletVelocity": 100
+      },
+      {
+        "time": 33,
+        "x": 0.5,
+        "health": 15,
+        "speedX": 50, 
+        "speedY": 20,
+        "key": "desktop",
+        "scale": 1,
+        "shootFreq": 2,
+        "bulletVelocity": 200
+      }
+      
+      ]
+    }

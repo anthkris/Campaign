@@ -1,0 +1,36 @@
+{"frames": {
+
+"desktop_001.png":
+{
+	"frame": {"x":1,"y":1,"w":583,"h":189},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":583,"h":189},
+	"sourceSize": {"w":583,"h":189}
+},
+"desktop_002.png":
+{
+	"frame": {"x":586,"y":1,"w":583,"h":189},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":583,"h":189},
+	"sourceSize": {"w":583,"h":189}
+},
+"desktop_003.png":
+{
+	"frame": {"x":1171,"y":1,"w":583,"h":189},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":583,"h":189},
+	"sourceSize": {"w":583,"h":189}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "desktopSprite.png",
+	"format": "RGBA8888",
+	"size": {"w":1755,"h":191},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:cdeb89d48f1b5d06aa6771462e97c51c:19f57b6252f4e6ffe33525dfee6d5eda:b923fa4bb7a1dab6c1a6e7d98322ec15$"
+}
+}
