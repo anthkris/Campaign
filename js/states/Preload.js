@@ -17,7 +17,7 @@ Campaign.PreloadState = {
     this.load.image('enemyBullet', 'assets/images/anger.png');  
     this.load.image('enemyParticle', 'assets/images/explodeParticle.png');
     this.load.spritesheet('desktop', 'assets/images/desktopSprite.png', 583, 189, 3, 1, 1);   
-    this.load.spritesheet('laptop', 'assets/images/laptopSprite.png', 417, 229, 3, 2, 2);   
+    this.load.spritesheet('laptop', 'assets/images/laptopSprite.png', 417, 229, 3, 1, 1);   
     this.load.spritesheet('tablet', 'assets/images/tabletSprite.png', 103, 143, 3, 1, 1);   
     
     //load level data
@@ -26,7 +26,7 @@ Campaign.PreloadState = {
     this.load.text('level3', 'assets/data/level3.json');
     
     //load audio
-    this.load.audio('orchestra', ['assets/audio/8bit-orchestra.mp3', 'assets/audio/8bit-orchestra.ogg']);
+    this.load.audio('music', ['assets/audio/GasolineRainbows.mp3', 'assets/audio/GasolineRainbows.ogg']);
 
   },
   create: function() {

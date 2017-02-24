@@ -1,6 +1,6 @@
 var Campaign = Campaign || {};
 
-Campaign.Enemy = function(game, x, y, health, key, enemyBullets, shootFreq, bulletVelocity) {
+Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyBullets, shootFreq, bulletVelocity) {
   Phaser.Sprite.call(this, game, x, y, key); //create a sprite using a variable key
   this.game = game;
   this.game.physics.arcade.enable(this);
@@ -15,9 +15,8 @@ Campaign.Enemy = function(game, x, y, health, key, enemyBullets, shootFreq, bull
   this.enemyBullets = enemyBullets;
   // timer for shooting (you can have a parameter for this to allow different enemies to shoot at different frequencies)
   this.enemyTimer = this.game.time.create(false);
-  this.enemyTimer.start();
   
-  this.scheduleShooting(this.shootingFrequency, this.bulletVelocity);
+  this.reset(x, y, health, key, scale, speedX, speedY);
 };
 
 Campaign.Enemy.prototype = Object.create(Phaser.Sprite.prototype); //inherit from Sprite class
@@ -73,14 +72,14 @@ Campaign.Enemy.prototype.damage = function(amount) {
   
   // on kill, particle explosion
   if (this.health <= 0) {
-    var emitter = this.game.add.emitter(this.x, this.y, 100);
+    var emitter = this.game.add.emitter(this.x, this.y, 50);
     emitter.makeParticles('enemyParticle');
     emitter.minParticleSpeed.setTo(-200, -200);
     emitter.maxParticleSpeed.setTo(200, 200);
     emitter.gravity = 0;
     emitter.start(true, 500, null, 100);
     
-    this.enemyTimer.pause(); //stops bullet creation when the enemy dies
+    this.enemyTimer.stop(); //stops bullet creation when the enemy dies
   }
 };
 
@@ -92,7 +91,7 @@ Campaign.Enemy.prototype.reset = function(x, y, health, key, scale, speedX, spee
   this.body.velocity.x = speedX;
   this.body.velocity.y = speedY;
   //console.log(speedY);
+  this.scheduleShooting(this.shootingFrequency, this.bulletVelocity);
   
-  
-  this.enemyTimer.resume();
+  this.enemyTimer.start();
 }

@@ -15,11 +15,18 @@ Campaign.GameState = {
     //level data
     this.numLevels = 3;
     this.currentLevel = currentLevel ? currentLevel : 1;
-    console.log('current level:' + this.currentLevel)
+    console.log('current level:' + this.currentLevel);
 
   },
   //executed after everything is loaded
   create: function() {
+    /* SOUND AND MUSIC */
+    if (!Campaign.game.technoMusic) {
+      Campaign.game.technoMusic = this.game.add.audio('music');
+    	Campaign.game.technoMusic.onDecoded.add(this.musicStart, this);
+    	Campaign.game.technoMusic.loopFull();
+    }
+  	
     this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
     this.background.autoScroll(0, 30);
     
@@ -31,17 +38,17 @@ Campaign.GameState = {
     this.player.body.collideWorldBounds = true; //player sprite cannot leave the screen
     
     // initiate bullet pool
-    this.initBullets();
     this.shootingTimer = this.game.time.events.loop(Phaser.Timer.SECOND/5, this.createPlayerBullet, this);
+
+    this.enemies = this.add.group();
     
-    // enemy
-    this.initEnemies();
+    this.enemyBullets = this.add.group();
+    this.enemyBullets.enableBody = true;
     
+    this.playerBullets = this.add.group();
+    this.playerBullets.enableBody = true;
     // load levels
     this.loadLevel();
-    
-    this.orchestra = this.add.audio('orchestra');
-    this.orchestra.play();
     
   },
   update: function() {
@@ -67,10 +74,6 @@ Campaign.GameState = {
       this.player.body.velocity.x = direction * this.PLAYER_SPEED; 
     }
   },
-  initBullets: function() {
-    this.playerBullets = this.add.group();
-    this.playerBullets.enableBody = true;
-  },
   createPlayerBullet: function() {
     var bullet = this.playerBullets.getFirstExists(false);
     if (!bullet) {
@@ -84,21 +87,15 @@ Campaign.GameState = {
     // set velocity
     bullet.body.velocity.y = this.BULLET_SPEED;
   },
-  initEnemies: function() {
-    this.enemies = this.add.group();
-//     this.enemies.enableBody = true;
-    
-    this.enemyBullets = this.add.group();
-    this.enemyBullets.enableBody = true;
-    
-  },
   damageEnemy: function(bullet, enemy) {
+    if(enemy.key === "laptop") {
+      console.log(enemy);
+    }
     enemy.damage(1);
     bullet.kill();
   },
   damagePlayer: function(){
     this.player.kill();
-    this.orchestra.stop();
     this.game.state.start('Game', true, false, this.currentLevel);
   },
   createEnemy: function(x, y, health, key, scale, speedX, speedY, shootFreq, bulletVelocity){
@@ -106,11 +103,12 @@ Campaign.GameState = {
     var enemy = this.enemies.getFirstExists(false);
    
     if (!enemy) {
-      enemy = new Campaign.Enemy(this.game, x, y, health, key, this.enemyBullets, shootFreq, bulletVelocity);
+      enemy = new Campaign.Enemy(this.game, x, y, health, key, scale, speedX, speedY, this.enemyBullets, shootFreq, bulletVelocity);
       this.enemies.add(enemy);
+    } else {
+      enemy.reset(x, y, health, key, scale, speedX, speedY);
     }
     
-    enemy.reset(x, y, health, key, scale, speedX, speedY);
   },
   loadLevel: function() {
     
@@ -121,7 +119,6 @@ Campaign.GameState = {
     //end of level timer
     this.endOfLevelTimer = this.game.time.events.add(this.levelData.duration * 1000, function() {
       console.log('level ended!');
-      this.orchestra.stop();
       if (this.currentLevel < this.numLevels) {
         this.currentLevel++;
       } else {
@@ -146,13 +143,16 @@ Campaign.GameState = {
         // fixed rounds to 1 decimal place
         // BUT: returns string!
         // to get it back to number format
-        var x = parseFloat(fixed);
-        this.createEnemy((x * this.game.world.width), -100, nextEnemy.health, nextEnemy.key, nextEnemy.scale, nextEnemy.speedX, nextEnemy.speedY, nextEnemy.shootFreq, nextEnemy.bulletVelocity);
+        var randomX = parseFloat(fixed);
+        this.createEnemy((randomX * this.game.world.width), -100, nextEnemy.health, nextEnemy.key, nextEnemy.scale, nextEnemy.speedX, nextEnemy.speedY, nextEnemy.shootFreq, nextEnemy.bulletVelocity);
         
         this.currentEnemyIndex++;
         this.scheduleNextEnemy();
       }, this);
     }
+  },
+  musicStart: function() {
+    Campaign.game.technoMusic.fadeIn(2000);
   }
 
 };
