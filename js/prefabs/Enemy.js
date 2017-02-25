@@ -85,9 +85,10 @@ Campaign.Enemy.prototype.damage = function(amount) {
 
 Campaign.Enemy.prototype.reset = function(x, y, health, key, scale, speedX, speedY) {
   Phaser.Sprite.prototype.reset.call(this, x, y, health);
-  
   this.loadTexture(key); // changes sprite
   this.scale.setTo(scale);
+  /* Fix body size: http://www.html5gamedevs.com/topic/13932-problem-with-arcade-bodysetsize/  */
+  this.body.setSize(this.width / this.scale.x,this.height / this.scale.y);
   this.body.velocity.x = speedX;
   this.body.velocity.y = speedY;
   //console.log(speedY);

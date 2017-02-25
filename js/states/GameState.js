@@ -101,13 +101,15 @@ Campaign.GameState = {
   createEnemy: function(x, y, health, key, scale, speedX, speedY, shootFreq, bulletVelocity){
   
     var enemy = this.enemies.getFirstExists(false);
-   
+  
     if (!enemy) {
       enemy = new Campaign.Enemy(this.game, x, y, health, key, scale, speedX, speedY, this.enemyBullets, shootFreq, bulletVelocity);
       this.enemies.add(enemy);
     } else {
       enemy.reset(x, y, health, key, scale, speedX, speedY);
     }
+    
+    console.log("enemy body width: " + enemy.body.width +  " height: " + enemy.body.height + " enemy width " + enemy.width + " enemy height " + enemy.height);
     
   },
   loadLevel: function() {
@@ -153,6 +155,12 @@ Campaign.GameState = {
   },
   musicStart: function() {
     Campaign.game.technoMusic.fadeIn(2000);
+  },
+  render: function() {
+    this.enemies.forEachAlive(function(enemy){
+      this.game.debug.body(enemy);
+    }, this);
+    
   }
 
 };
