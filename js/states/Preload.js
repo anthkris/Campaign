@@ -13,12 +13,16 @@ Campaign.PreloadState = {
     //load game assets    
     this.load.image('space', 'assets/images/cyberSpace.png');    
     this.load.image('player', 'assets/images/phone.png');    
-    this.load.image('bullet', 'assets/images/heartAttack.png');
-    this.load.image('enemyBullet', 'assets/images/anger.png');  
-    this.load.image('enemyParticle', 'assets/images/explodeParticle.png');
+    this.load.image('bulletLvl1', 'assets/images/heartAttackLvl1.png');
+    this.load.image('bulletLvl2', 'assets/images/heartAttack.png');
+    this.load.image('hurtBullet', 'assets/images/hurtYou.png');
+    this.load.image('uneaseBullet', 'assets/images/unease.png');
+    this.load.image('enemyParticle', 'assets/images/enemyExplosion.png');
+    this.load.image('playerParticle', 'assets/images/explodeParticle.png');
     this.load.spritesheet('desktop', 'assets/images/desktopSprite.png', 583, 189, 3, 1, 1);   
     this.load.spritesheet('laptop', 'assets/images/laptopSprite.png', 417, 229, 3, 1, 1);   
-    this.load.spritesheet('tablet', 'assets/images/tabletSprite.png', 103, 143, 3, 1, 1);   
+    this.load.spritesheet('tablet', 'assets/images/tabletSprite.png', 103, 143, 3, 1, 1);
+    this.load.spritesheet('explosion', 'assets/images/explosion.png', 102, 95, 6, 1, 1); 
     
     //load level data
     this.load.text('level1', 'assets/data/level1.json');

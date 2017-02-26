@@ -1,16 +1,23 @@
 var Campaign = Campaign || {};
 
-Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyBullets, shootFreq, bulletVelocity) {
+Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyBullets, shootFreq, bulletVelocity, enemyBullet) {
   Phaser.Sprite.call(this, game, x, y, key); //create a sprite using a variable key
   this.game = game;
   this.game.physics.arcade.enable(this);
-  
+  //this.outOfBoundsKill = true;
+  this.checkWorldBounds = true;
+  this.addEnemyEmitterTrail();
   this.animations.add('getHit', [0, 1, 2, 1, 0], 25, false);
   this.anchor.setTo(0.5);
   this.health = health;
   this.shootingFrequency = shootFreq;
   this.bulletVelocity = bulletVelocity;
+  this.enemyBullet = enemyBullet;
   
+  // Wave variables
+  this.startingX = x;
+  this.spread = 60;
+  this.frequency = 70;
   
   this.enemyBullets = enemyBullets;
   // timer for shooting (you can have a parameter for this to allow different enemies to shoot at different frequencies)
@@ -23,24 +30,20 @@ Campaign.Enemy.prototype = Object.create(Phaser.Sprite.prototype); //inherit fro
 Campaign.Enemy.prototype.constructor = Campaign.Enemy; //note which method is the constructor
 
 Campaign.Enemy.prototype.update = function() {
-  // check if the position is within 5% of the width
-  // using percentages for responsiveness to different resolutions
-  if (this.x < (0.05 * this.game.world.width)) {
-    // if so, push it out a bit and change direction
-    this.x = (0.05 * this.game.world.width) + 2;
-    this.body.velocity.x *= -1;
-  } else if (this.x > (0.95 * this.game.world.width)){
-    this.x = (0.95 * this.game.world.width) - 2;
-    this.body.velocity.x *= -1;
-  }
   
-  // if top of sprite is below the height
+  // // if top of sprite is below the height
   if (this.top > this.game.world.height) {
     this.kill(); // allows you to reuse the sprite in the pool
   }
+  //console.log('not a wave of enemies');
+  this.angle = 180 - this.game.math.radToDeg(Math.atan2(this.body.velocity.x, this.body.velocity.y));
+  
+  this.trail.x = this.x;
+  this.trail.y = this.y - 10;
+  
 };
 
-Campaign.Enemy.prototype.scheduleShooting = function(freq, bulletVelocity) {
+Campaign.Enemy.prototype.scheduleShooting = function(freq, bulletVelocity, enemyBullet) {
   // enemy shooting AI on a timer
   if (!freq){
     freq = this.shootingFrequency;
@@ -48,15 +51,15 @@ Campaign.Enemy.prototype.scheduleShooting = function(freq, bulletVelocity) {
   if (!bulletVelocity){
     bulletVelocity = this.bulletVelocity;
   }
-  this.shoot(bulletVelocity);
+  this.shoot(bulletVelocity, enemyBullet);
   this.enemyTimer.add(Phaser.Timer.SECOND * freq, this.scheduleShooting, this);
 };
 
-Campaign.Enemy.prototype.shoot = function(bulletVelocity) {
+Campaign.Enemy.prototype.shoot = function(bulletVelocity, enemyBullet) {
   //pool of objects
   var bullet = this.enemyBullets.getFirstExists(false);
   if (!bullet){
-    bullet = new Campaign.EnemyBullet(this.game, this.x, this.bottom);
+    bullet = new Campaign.EnemyBullet(this.game, this.x, this.bottom, enemyBullet);
     this.enemyBullets.add(bullet);
   } else {
     bullet.reset(this.x, this.y);
@@ -78,6 +81,7 @@ Campaign.Enemy.prototype.damage = function(amount) {
     emitter.maxParticleSpeed.setTo(200, 200);
     emitter.gravity = 0;
     emitter.start(true, 500, null, 100);
+    this.trail.kill();
     
     this.enemyTimer.stop(); //stops bullet creation when the enemy dies
   }
@@ -88,11 +92,23 @@ Campaign.Enemy.prototype.reset = function(x, y, health, key, scale, speedX, spee
   this.loadTexture(key); // changes sprite
   this.scale.setTo(scale);
   /* Fix body size: http://www.html5gamedevs.com/topic/13932-problem-with-arcade-bodysetsize/  */
-  this.body.setSize(this.width / this.scale.x,this.height / this.scale.y);
+  this.body.setSize(this.width / this.scale.x, this.height / this.scale.y);
   this.body.velocity.x = speedX;
   this.body.velocity.y = speedY;
+  this.trail.start(false, 800, 1);
   //console.log(speedY);
-  this.scheduleShooting(this.shootingFrequency, this.bulletVelocity);
+  this.scheduleShooting(this.shootingFrequency, this.bulletVelocity, this.enemyBullet);
   
   this.enemyTimer.start();
+};
+
+Campaign.Enemy.prototype.addEnemyEmitterTrail = function () {
+  var enemyTrail = this.game.add.emitter(this.x, this.y - 10, 100);
+  enemyTrail.width = 10;
+  enemyTrail.makeParticles('explosion', [1,2,3,4,5]);
+  enemyTrail.setXSpeed(20, -20);
+  enemyTrail.setRotation(50,-50);
+  enemyTrail.setAlpha(0.4, 0, 800);
+  enemyTrail.setScale(0.01, 0.1, 0.01, 0.1, 1000, Phaser.Easing.Quintic.Out);
+  this.trail = enemyTrail;
 }

@@ -1,8 +1,8 @@
 var Campaign = Campaign || {};
 
-Campaign.PlayerBullet = function(game, x, y) {
-  Phaser.Sprite.call(this, game, x, y, 'bullet'); // create a sprite using predefined key
-  
+Campaign.PlayerBullet = function(game, x, y, bullet) {
+  Phaser.Sprite.call(this, game, x, y, bullet); // create a sprite using predefined key
+  this.game = game;
   this.anchor.setTo(0.5);
   this.scale.setTo(0.3);
   

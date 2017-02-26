@@ -1,10 +1,11 @@
 var Campaign = Campaign || {};
 
-Campaign.EnemyBullet = function(game, x, y) {
-  Phaser.Sprite.call(this, game, x, y, 'enemyBullet'); // create a sprite using predefined key
+Campaign.EnemyBullet = function(game, x, y, enemyBullet) {
+  Phaser.Sprite.call(this, game, x, y, enemyBullet); // create a sprite using predefined key
   
   this.anchor.setTo(0.5);
   this.scale.setTo(0.3);
+  this.damageAmount = 10;
   
   //Check which sprites are dead
   this.checkWorldBounds = true;
