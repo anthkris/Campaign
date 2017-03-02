@@ -1,6 +1,6 @@
 var Campaign = Campaign || {};
 
-Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyBullets, shootFreq, bulletVelocity, enemyBullet) {
+Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyBullets, shootFreq, bulletVelocity, enemyBullet, damageAmount) {
   Phaser.Sprite.call(this, game, x, y, key); //create a sprite using a variable key
   this.game = game;
   this.game.physics.arcade.enable(this);
@@ -13,6 +13,7 @@ Campaign.Enemy = function(game, x, y, health, key, scale, speedX, speedY, enemyB
   this.shootingFrequency = shootFreq;
   this.bulletVelocity = bulletVelocity;
   this.enemyBullet = enemyBullet;
+  this.damageAmount = damageAmount;
   
   // Wave variables
   this.startingX = x;
@@ -59,7 +60,7 @@ Campaign.Enemy.prototype.shoot = function(bulletVelocity, enemyBullet) {
   //pool of objects
   var bullet = this.enemyBullets.getFirstExists(false);
   if (!bullet){
-    bullet = new Campaign.EnemyBullet(this.game, this.x, this.bottom, enemyBullet);
+    bullet = new Campaign.EnemyBullet(this.game, this.x, this.bottom, enemyBullet, this.damageAmount);
     this.enemyBullets.add(bullet);
   } else {
     bullet.reset(this.x, this.y);

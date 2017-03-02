@@ -1,7 +1,7 @@
 var Campaign = Campaign || {};
 
 
-/* Some Code from this tutorial: 
+/* Some Code uses the logic from this tutorial: 
 http://codeperfectionist.com/articles/phaser-js-tutorial-building-a-polished-space-shooter-game-part-1/  */
 
 Campaign.GameState = {
@@ -24,20 +24,20 @@ Campaign.GameState = {
     // this.currentLevel = currentLevel ? currentLevel : 1;
     // console.log('current level:' + this.currentLevel);
     
-    this.score = 900;
+    this.score = 4000;
     this.playerWeaponLevel = 1;
   },
   //executed after everything is loaded
   create: function() {
     /* SOUND AND MUSIC */
-    // if (!Campaign.game.technoMusic) {
-    //   Campaign.game.technoMusic = this.game.add.audio('music');
-    // 	Campaign.game.technoMusic.onDecoded.add(this.musicStart, this);
-    // 	Campaign.game.technoMusic.loopFull();
-    // }
+    if (!Campaign.game.technoMusic) {
+      Campaign.game.technoMusic = this.game.add.audio('music');
+    	Campaign.game.technoMusic.onDecoded.add(this.musicStart, this);
+    	Campaign.game.technoMusic.loopFull();
+    }
   	
-    //this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
-    //this.background.autoScroll(0, 30);
+    this.background = this.add.tileSprite(0, 0, this.game.world.width, this.game.world.height, 'space');
+    this.background.autoScroll(0, 30);
     
     // Player
     this.player = this.add.sprite(this.game.world.centerX, this.game.world.height - 70, 'player');
@@ -82,6 +82,9 @@ Campaign.GameState = {
     
     this.playerBullets = this.add.group();
     this.playerBullets.enableBody = true;
+    this.playerBullets.createMultiple(30, 'bulletLvl2');
+    this.playerBullets.setAll('outOfBoundsKill', true);
+    this.playerBullets.setAll('checkWorldBounds', true);
     
     this.tabletEnemyLaunchTimer;
     this.tabletEnemySpacing = 1000;
@@ -100,11 +103,12 @@ Campaign.GameState = {
     
   },
   update: function() {
-    
+    console.log(this.player.health);
     this.game.physics.arcade.overlap(this.playerBullets, this.tabletEnemies, this.damageEnemy, null, this);
     this.game.physics.arcade.overlap(this.player, this.tabletEnemies, this.shipCollide, null, this);
     this.game.physics.arcade.overlap(this.playerBullets, this.laptopEnemies, this.damageEnemy, null, this);
     this.game.physics.arcade.overlap(this.player, this.laptopEnemies, this.shipCollide, null, this);
+    
     this.game.physics.arcade.overlap(this.tabletEnemyBullets, this.player, this.damagePlayer, null, this);
     this.game.physics.arcade.overlap(this.laptopEnemyBullets, this.player, this.damagePlayer, null, this);
     
@@ -136,39 +140,48 @@ Campaign.GameState = {
   },
   createPlayerBullet: function() {
     var bullet = this.playerBullets.getFirstExists(false);
-    if (!bullet) {
-      bullet = new Campaign.PlayerBullet(this.game, this.player.x, this.player.top, 'bulletLvl1');
-      this.playerBullets.add(bullet);
-        // // set velocity
-    bullet.body.velocity.y = this.BULLET_SPEED;
-    } else {
+    //  Make bullet come out of tip of ship with correct angle
+    var bulletOffset = 20 * Math.sin(this.game.math.degToRad(this.player.angle));
+      
       if (this.playerWeaponLevel === 1) {
-         //  Make bullet come out of tip of ship with correct angle
-        var bulletOffset = 20 * Math.sin(this.game.math.degToRad(this.player.angle));
-        bullet.reset(this.player.x + bulletOffset, this.player.top);
-        bullet.angle = this.player.angle;
-        this.game.physics.arcade.velocityFromAngle(bullet.angle + 90, this.BULLET_SPEED, bullet.body.velocity);
-        bullet.body.velocity.x += this.player.body.velocity.x;
+         
+        if (bullet) {
+          // set velocity
+          bullet.body.velocity.y = this.BULLET_SPEED;
+          bullet.anchor.setTo(0.5);
+          bullet.scale.setTo(0.4);
+          bullet.reset(this.player.x + bulletOffset, this.player.top);
+          bullet.angle = this.player.angle;
+          this.game.physics.arcade.velocityFromAngle(bullet.angle + 90, this.BULLET_SPEED, bullet.body.velocity);
+          bullet.body.velocity.x += this.player.body.velocity.x;
+        }
       } else if (this.playerWeaponLevel === 2) {
-        var BULLET_SPACING = 550;
         if (this.game.time.now > this.bulletTimer) {
+            var BULLET_SPEED = 400;
+            var BULLET_SPACING = 550;
+
+
             for (var i = 0; i < 3; i++) {
-              //  Make bullet come out of tip of ship with right angle
-              var bulletOffset = 20 * Math.sin(this.game.math.degToRad(this.player.angle));
-              bullet.reset(this.player.x + bulletOffset, this.player.top);
-              //  "Spread" angle of 1st and 3rd bullets
-              var spreadAngle;
-              if (i === 0) spreadAngle = -20;
-              if (i === 1) spreadAngle = 0;
-              if (i === 2) spreadAngle = 20;
-              bullet.angle = this.player.angle + spreadAngle;
-              this.game.physics.arcade.velocityFromAngle(bullet.angle + 90, this.BULLET_SPEED, bullet.body.velocity);
-              bullet.body.velocity.x += this.player.body.velocity.x;
+                var bullet = this.playerBullets.getFirstExists(false);
+                if (bullet) {
+                    //  Make bullet come out of tip of ship with right angle
+                    var bulletOffset = 20 * Math.sin(this.game.math.degToRad(this.player.angle));
+                    bullet.reset(this.player.x + bulletOffset, this.player.top);
+                    bullet.anchor.setTo(0.5);
+                    bullet.scale.setTo(0.4);
+                    //  "Spread" angle of 1st and 3rd bullets
+                    var spreadAngle;
+                    if (i === 0) spreadAngle = -20;
+                    if (i === 1) spreadAngle = 0;
+                    if (i === 2) spreadAngle = 20;
+                    bullet.angle = this.player.angle + spreadAngle;
+                    this.game.physics.arcade.velocityFromAngle(spreadAngle - 90, BULLET_SPEED, bullet.body.velocity);
+                    bullet.body.velocity.x += this.player.body.velocity.x;
+                }
+                this.bulletTimer = this.game.time.now + BULLET_SPACING;
             }
-            this.bulletTimer = this.game.time.now + BULLET_SPACING;
         }
       }
-    }
   },
   damageEnemy: function(bullet, enemy) {
     // if(enemy.key === "laptop") {
@@ -201,19 +214,18 @@ Campaign.GameState = {
   shipCollide: function(player, enemy) {
     enemy.damage(10);
     player.damage(enemy.damageAmount);
-    this.updateGUI(this.score, this.scoreText, this.shieldsText, this.player.health);
+    this.updateGUI(this.score, this.scoreText, this.shieldsText, player.health);
     if (player.health <= 0) {
       this.shipTrail.kill();
       this.shootingTimer.timer.stop();
-        this.playerDeath.x = player.x;
-        this.playerDeath.y = player.y;
-        this.playerDeath.start(false, 1000, 10, 10);
+      this.playerDeath.x = player.x;
+      this.playerDeath.y = player.y;
+      this.playerDeath.start(false, 1000, 10, 10);
     }
   },
-  damagePlayer: function(enemyBullet, player) {
+  damagePlayer: function(player, enemyBullet) {
     enemyBullet.kill();
-    player.damage(10);
-    console.log(player.health);
+    player.damage(enemyBullet.damageAmount);
     this.updateGUI(this.score, this.scoreText, this.shieldsText, player.health);
     if (player.health <= 0) {
       this.shipTrail.kill();
@@ -242,8 +254,7 @@ Campaign.GameState = {
     var enemy = this.tabletEnemies.getFirstExists(false);
     
     if (!enemy) {
-      enemy = new Campaign.Enemy(this.game, this.game.rnd.integerInRange(0, this.game.width), -20,  TABLET_ENEMY_HEALTH, 'tablet', 0.5, TABLET_ENEMY_SPEED_X, TABLET_ENEMY_SPEED_Y, this.tabletEnemyBullets, TABLET_ENEMY_SHOOT_FREQ, TABLET_ENEMY_BULLET_VELOCITY, TABLET_ENEMY_BULLET);
-      enemy.damageAmount = 10;
+      enemy = new Campaign.Enemy(this.game, this.game.rnd.integerInRange(0, this.game.width), -20,  TABLET_ENEMY_HEALTH, 'tablet', 0.5, TABLET_ENEMY_SPEED_X, TABLET_ENEMY_SPEED_Y, this.tabletEnemyBullets, TABLET_ENEMY_SHOOT_FREQ, TABLET_ENEMY_BULLET_VELOCITY, TABLET_ENEMY_BULLET, 10);
       this.tabletEnemies.add(enemy);
     } else {
       enemy.reset(this.game.rnd.integerInRange(0, this.game.width), -20, TABLET_ENEMY_HEALTH, 'tablet', 0.5, TABLET_ENEMY_SPEED_X, TABLET_ENEMY_SPEED_Y);
@@ -270,8 +281,7 @@ Campaign.GameState = {
     for (var i = 0; i < numEnemiesInWave; i++) {
         var enemy = this.laptopEnemies.getFirstExists(false);
         if (!enemy) {
-          enemy = new Campaign.Enemy(this.game, startingX, verticalSpacing * i,  LAPTOP_ENEMY_HEALTH, 'laptop', 0.4, LAPTOP_ENEMY_SPEED_X, LAPTOP_ENEMY_SPEED_Y, this.laptopEnemyBullets, LAPTOP_ENEMY_SHOOT_FREQ, LAPTOP_ENEMY_BULLET_VELOCITY, LAPTOP_ENEMY_BULLET);
-          enemy.damageAmount = 30;
+          enemy = new Campaign.Enemy(this.game, startingX, verticalSpacing * i,  LAPTOP_ENEMY_HEALTH, 'laptop', 0.4, LAPTOP_ENEMY_SPEED_X, LAPTOP_ENEMY_SPEED_Y, this.laptopEnemyBullets, LAPTOP_ENEMY_SHOOT_FREQ, LAPTOP_ENEMY_BULLET_VELOCITY, LAPTOP_ENEMY_BULLET, 30);
           this.laptopEnemies.add(enemy);
         } else {
             enemy.reset(startingX, verticalSpacing * i, LAPTOP_ENEMY_HEALTH, 'laptop', 0.4, LAPTOP_ENEMY_SPEED_X, LAPTOP_ENEMY_SPEED_Y);
@@ -292,7 +302,7 @@ Campaign.GameState = {
   },
   render: function() {
     this.tabletEnemies.forEachAlive(function(enemy){
-      this.game.debug.body(enemy);
+      //this.game.debug.body(enemy);
     }, this);
     
   },

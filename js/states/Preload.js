@@ -11,7 +11,7 @@ Campaign.PreloadState = {
     this.load.setPreloadSprite(this.preloadBar);
 
     //load game assets    
-    this.load.image('space', 'assets/images/cyberSpace.png');    
+    this.load.image('space', 'assets/images/interwebsBG2.png');    
     this.load.image('player', 'assets/images/phone.png');    
     this.load.image('bulletLvl1', 'assets/images/heartAttackLvl1.png');
     this.load.image('bulletLvl2', 'assets/images/heartAttack.png');
