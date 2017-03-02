@@ -93,9 +93,9 @@ Campaign.GameState = {
     
     
     //  Score and shields
-    var style = {font: '14px Arial', fill: '#fff'};
+    var style = {font: '14px Arial', fill: '#ffffff'};
     this.scoreText = this.game.add.text(10, 10, style);
-    this.shieldsText = this.game.add.text(this.game.world.width - 190, 10, style)
+    this.shieldsText = this.game.add.text(this.game.world.width - 250, 10, style)
     this.updateGUI(this.score, this.scoreText, this.shieldsText, this.player.health);
     
     // load levels
@@ -308,8 +308,8 @@ Campaign.GameState = {
   },
   updateGUI: function(score, scoreText, shieldText, playerHealth) {
     console.log(playerHealth);
-    scoreText.text = 'Score: ' + score;
-    shieldText.text = 'Shields: ' + Math.max(playerHealth, 0) + '%';
+    scoreText.text = 'Followers: ' + score;
+    shieldText.text = 'Hater Shields: ' + Math.max(playerHealth, 0) + '%';
   }
 
 };
